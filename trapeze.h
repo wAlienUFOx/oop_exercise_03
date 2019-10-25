@@ -7,7 +7,7 @@
 class Trapeze : public Figure {
 public:
         Trapeze();
-        Trapeze(const Point& x, const Point& y, const Point& z, const Point& w);
+	Trapeze(std::istream& in);
 	double area() const override;
 	Point center() const override;
 	std::ostream& print(std::ostream& out) const override;

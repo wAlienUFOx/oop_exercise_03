@@ -23,3 +23,9 @@ std::ostream& operator<< (std::ostream& out, const Point& p)
 	return out;
 }
 
+
+std::istream& operator>> (std::istream& in, Point& p)
+{
+        in >> p.x >> p.y; 
+}
+

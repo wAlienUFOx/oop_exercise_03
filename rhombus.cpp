@@ -2,8 +2,17 @@
 #include <cmath>
 
 Rhombus::Rhombus() : A{0, 0}, B{0, 0}, C{0, 0}, D{0,0} {}
+Rhombus::Rhombus(std::istream& in) {
+  in >> A >> B >> C >> D;
+  double a, b, c, d;
+  a = sqrt((B.X()- A.X()) * (B.X() - A.X()) + (B.Y() - A.Y()) * (B.Y() - A.Y()));
+  b = sqrt((C.X()- B.X()) * (C.X() - B.X()) + (C.Y() - B.Y()) * (C.Y() - B.Y()));
+  c = sqrt((C.X()- D.X()) * (C.X() - D.X()) + (C.Y() - D.Y()) * (C.Y() - D.Y()));
+  d = sqrt((D.X()- A.X()) * (D.X() - A.X()) + (D.Y() - A.Y()) * (D.Y() - A.Y()));
+  if(a != b || a != c || a != d)
+    throw std::logic_error("It`s not a rhombus");
+}
 
-Rhombus::Rhombus(const Point& x, const Point& y, const Point& z, const Point& w) : A{x}, B{y}, C{z}, D{w} {}
 
 double Rhombus::area() const{
   double d1 = sqrt((C.X() - A.X()) * (C.X() - A.X()) + (C.Y() - A.Y()) * (C.Y() - A.Y()));;

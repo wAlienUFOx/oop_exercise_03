@@ -8,7 +8,6 @@
 
 void read_figt(std::vector<Figure *>& fig)
 {
-  double x1, y1, x2, y2, x3, y3, x4, y4;
   int figt;
   Trapeze *t = nullptr;
   Rhombus *rh = nullptr;
@@ -18,18 +17,30 @@ void read_figt(std::vector<Figure *>& fig)
   std::cin >> figt;
   switch (figt) {
   case 1:
-    std::cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3 >> x4 >> y4;
-    t = new Trapeze{Point{x1, y1}, Point{x2, y2}, Point{x3, y3}, Point{x4, y4}};
+    try{
+      t = new Trapeze(std::cin);
+    } catch(std::logic_error& err){
+      std::cout << err.what() << std::endl;
+      break;
+    }
     fig.push_back(dynamic_cast<Figure*>(t));
     break;
   case 2:
-    std::cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3 >> x4 >> y4;
-    rh = new Rhombus{Point{x1, y1}, Point{x2, y2}, Point{x3, y3}, Point{x4, y4}};
+    try{
+      rh = new Rhombus(std::cin);
+    }catch(std::logic_error& err){
+      std::cout << err.what() << std::endl;
+      break;
+    }
     fig.push_back(dynamic_cast<Figure*>(rh));
     break;
   case 3:
-    std::cin >> x1 >> y1 >> x2 >> y2 >> x3 >> y3 >> x4 >> y4;
-    re = new Rectangle{Point{x1, y1}, Point{x2, y2}, Point{x3, y3}, Point{x4, y4}};
+    try {
+      re = new Rectangle(std::cin);
+    } catch(std::logic_error& err){
+      std::cout << err.what() << std::endl;
+      break;
+    }
     fig.push_back(dynamic_cast<Figure*>(re));
     break;
   default:
@@ -78,7 +89,7 @@ int main(){
 	std::cout << std::endl;
 	Tarea += fig[i]->area();
       }
-      std::cout << "Общая площадь: " << Tarea << std::endl;
+      std::cout << "Total area: " << Tarea << std::endl;
     }
     else if (operation == "quit"){
       for (unsigned int i = 0; i < fig.size(); ++i) {

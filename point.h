@@ -9,12 +9,12 @@ public:
 	Point(double x, double y);
 	double X() const;
 	double Y() const;
+	friend std::ostream& operator<< (std::ostream& out, const Point& p);
+	friend std::istream& operator>> (std::istream& in, Point& p);
 private:
 	double x;
 	double y;
 };
-
-bool operator== (const Point& x, const Point& y);
-std::ostream& operator<< (std::ostream& out, const Point& p);
+ 
 
 #endif

@@ -3,7 +3,17 @@
 
 Trapeze::Trapeze() : A{0, 0}, B{0, 0}, C{0, 0}, D{0,0} {}
 
-Trapeze::Trapeze(const Point& x, const Point& y, const Point& z, const Point& w) : A{x}, B{y}, C{z}, D{w} {}
+Trapeze::Trapeze(std::istream& in) {
+  in >> A >> B >> C >> D;
+  double a, b, c, d;
+  a = sqrt((B.X()- A.X()) * (B.X() - A.X()) + (B.Y() - A.Y()) * (B.Y() - A.Y()));
+  b = sqrt((C.X()- B.X()) * (C.X() - B.X()) + (C.Y() - B.Y()) * (C.Y() - B.Y()));
+  c = sqrt((C.X()- D.X()) * (C.X() - D.X()) + (C.Y() - D.Y()) * (C.Y() - D.Y()));
+  d = sqrt((D.X()- A.X()) * (D.X() - A.X()) + (D.Y() - A.Y()) * (D.Y() - A.Y()));
+  if(a != c || (B.X() - C.X()) / b != (A.X() - D.X()) / d || (B.Y() - C.Y()) / b != (A.Y() - D.Y()) / d)
+    throw std::logic_error("It`s not a isosceles trapeze");
+}
+
 
 double Trapeze::area() const{
   double a = sqrt((C.X() - B.X()) * (C.X() - B.X()) + (B.Y() - C.Y()) * (B.Y() - C.Y()));
@@ -23,7 +33,11 @@ Point Trapeze::center() const
   double c = (l - a) / 2;
   double h = sqrt((b * b) - (c * c));
   double y_ = (2 * l + a) * h / (a + l) / 3;
-  return Point{(A.X() + B.X() + C.X() + D.X()) / 4, (B.Y() + C.Y()) / 2 - ((B.Y() + C.Y()) / 2 - (D.Y() + A.Y()) / 2) * y_ / h   };
+  if (B.X() == C.X() && D.X() < C.X())
+    return Point{D.X() + h - y_, (A.Y() + B.Y() + C.Y() + D.Y()) / 4};
+  if (B.X() == C.X() && C.X() < D.X())
+    return Point{C.X() + h - y_, (A.Y() + B.Y() + C.Y() + D.Y()) / 4};
+  return Point{(A.X() + B.X() + C.X() + D.X()) / 4, (B.Y() + C.Y()) / 2 - ((B.Y() + C.Y()) / 2 - (D.Y() + A.Y()) / 2) * y_ / h};
 }
 
 std::ostream& Trapeze::print(std::ostream& out) const
