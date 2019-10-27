@@ -5,12 +5,10 @@ Trapeze::Trapeze() : A{0, 0}, B{0, 0}, C{0, 0}, D{0,0} {}
 
 Trapeze::Trapeze(std::istream& in) {
   in >> A >> B >> C >> D;
-  double a, b, c, d;
+  double a, c;
   a = sqrt((B.X()- A.X()) * (B.X() - A.X()) + (B.Y() - A.Y()) * (B.Y() - A.Y()));
-  b = sqrt((C.X()- B.X()) * (C.X() - B.X()) + (C.Y() - B.Y()) * (C.Y() - B.Y()));
   c = sqrt((C.X()- D.X()) * (C.X() - D.X()) + (C.Y() - D.Y()) * (C.Y() - D.Y()));
-  d = sqrt((D.X()- A.X()) * (D.X() - A.X()) + (D.Y() - A.Y()) * (D.Y() - A.Y()));
-  if(a != c || (B.X() - C.X()) / b != (A.X() - D.X()) / d || (B.Y() - C.Y()) / b != (A.Y() - D.Y()) / d)
+  if(a != c || (C.Y() - B.Y()) / (C.X() - B.X()) != (D.Y() - A.Y()) / (D.X() - A.X()))
     throw std::logic_error("It`s not a isosceles trapeze");
 }
 
