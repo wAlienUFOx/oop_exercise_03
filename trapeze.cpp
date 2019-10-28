@@ -11,7 +11,7 @@ Trapeze::Trapeze(std::istream& in) {
 
 
 double Trapeze::area() const{
-  return 0.5 * abs( A.X() * B.Y() + B.X() * C.Y() + C.X() * D.Y() + D.X() * A.Y() - B.X() * A.Y() - C.X() * B.Y() - D.X() * C.Y() - A.X() * D.Y());	       
+  return 0.5 * std::abs( A.X() * B.Y() + B.X() * C.Y() + C.X() * D.Y() + D.X() * A.Y() - B.X() * A.Y() - C.X() * B.Y() - D.X() * C.Y() - A.X() * D.Y());	  
 }
 
 Point Trapeze::center() const
